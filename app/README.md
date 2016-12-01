@@ -27,6 +27,26 @@ go get golang.org/x/crypto/blowfish
 
 go build -o server ./monolith
 ```
+Install Go
+
+    cd
+    wget https://storage.googleapis.com/golang/go1.7.4.linux-amd64.tar.gz
+    rm -rf /usr/local/bin/go
+    sudo tar -C /usr/local -xzf go1.7.4.linux-amd64.tar.gz
+    export PATH=$PATH:/usr/local/go/bin
+    export GOPATH=~/go
+
+Get the app code
+
+    mkdir -p $GOPATH/src/github.com/beacloudgenius
+    cd $GOPATH/src/github.com/beacloudgenius
+    git clone https://github.com/beacloudgenius/k8s.git
+
+Build a static binary of the monolith app
+
+    cd k8s/app/monolith
+    go get -u
+    go build --tags netgo --ldflags '-extldflags "-lm -lstdc++ -static"'
 
 ```
 ./server
