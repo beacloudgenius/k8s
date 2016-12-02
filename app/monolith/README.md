@@ -1,4 +1,4 @@
-    cd k8s/app/monolith
+    cd $GOPATH/src/github.com/beacloudgenius/k8s/app/monolith
     go get -u
     go build --tags netgo --ldflags '-extldflags "-lm -lstdc++ -static"'
 
