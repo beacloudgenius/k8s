@@ -47,6 +47,8 @@ wrote server.pem
 wrote server-key.pem
 ```
 
+    mv server.pem cert.pem
+    mv server-key.pem key.pem
     mkdir -p ../kubernetes/tls
     cp *pem ../kubernetes/tls/
     
