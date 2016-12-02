@@ -6,11 +6,14 @@ A sample 12 Factor Application.
 ~/.zshrc or ~/.bashrc
 
     export GOPATH=$HOME/go
-    export GOROOT=/usr/local/go/bin     or on mac use /usr/local/opt/go/libexec
+    export GOROOT=""                                or on mac use /usr/local/opt/go/libexec
     export PATH=$PATH:$GOPATH/bin
     export PATH=$PATH:$GOROOT/bin
     export GOBIN=$GOPATH/bin
 
+Don't set goroot on ubuntu 
+
+http://stackoverflow.com/questions/21001387/how-do-i-set-the-gopath-environment-variable-on-ubuntu-what-file-must-i-edit
 
 ## Get the code
 
