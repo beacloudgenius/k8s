@@ -3,7 +3,16 @@
 A sample 12 Factor Application.
 
 
-~/.zshrc or ~/.bashrc
+#### Install Go
+
+    cd
+    wget https://storage.googleapis.com/golang/go1.7.4.linux-amd64.tar.gz
+    rm -rf /usr/local/bin/go
+    sudo tar -C /usr/local -xzf go1.7.4.linux-amd64.tar.gz
+    export PATH=$PATH:/usr/local/go/bin
+    export GOPATH=~/go
+
+#### set ~/.zshrc or ~/.bashrc
 
     export GOPATH=$HOME/go
     export GOROOT=""                                or on mac use /usr/local/opt/go/libexec
@@ -37,17 +46,6 @@ wrote ca-key.pem
 wrote server.pem
 wrote server-key.pem
 ```
-
-#### Install Go
-
-    cd
-    wget https://storage.googleapis.com/golang/go1.7.4.linux-amd64.tar.gz
-    rm -rf /usr/local/bin/go
-    sudo tar -C /usr/local -xzf go1.7.4.linux-amd64.tar.gz
-    export PATH=$PATH:/usr/local/go/bin
-    export GOPATH=~/go
-
-
 
 #### Build a static binary of the monolith app
 
