@@ -1,4 +1,4 @@
-    cd k8s/app/auth
+    cd ../auth
     go get -u
     go build --tags netgo --ldflags '-extldflags "-lm -lstdc++ -static"'
 
