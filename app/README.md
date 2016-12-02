@@ -55,19 +55,19 @@ The password is `password`
 #### Test with cURL
 
 ```
-curl http://localhost:5080                                        
+curl --cacert ./ca.pem http://localhost:5080                                        
 {"message":"Hello"}
 
-curl http://localhost:5080/secure
+curl --cacert ./ca.pem http://localhost:5080/secure
 authorization failed
 
 >>> type `password` at the prompt
 
-curl http://localhost:5080/login -u user
+curl --cacert ./ca.pem http://localhost:5080/login -u user
 Enter host password for user 'user':
 {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0ODA5MDg1MDAsImlhdCI6MTQ4MDY0OTMwMCwiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.S5Kap0pzhS9G4kOcEhwhTh1HuzKyBic1QbNsbLt188E"}
 
-TOKEN=$(curl http://localhost:5080/login -u user | jq -r '.token')
+TOKEN=$(curl --cacert ./ca.pem http://localhost:5080/login -u user | jq -r '.token')
 Enter host password for user 'user':
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
@@ -76,10 +76,10 @@ Enter host password for user 'user':
 echo $TOKEN
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0ODA5MDg1MjUsImlhdCI6MTQ4MDY0OTMyNSwiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.JQIsbDRxxai1nxlYjGLfsW6V_Pe19kchJpE0PGP4Z-A
 
-curl -H "Authorization: Bearer $TOKEN" http://localhost:5080/secure
+curl --cacert ./ca.pem -H "Authorization: Bearer $TOKEN" http://localhost:5080/secure
 {"message":"Hello"}
 
-curl http://localhost:5080/secure
+curl --cacert ./ca.pem http://localhost:5080/secure
 authorization failed
 
 ```
@@ -105,16 +105,15 @@ go build -o ./a ./auth
 
 SHELL 3
 ```
-TOKEN=$(curl 127.0.0.1:5090/login -u user | jq -r '.token')
+TOKEN=$(curl --cacert ./ca.pem 127.0.0.1:5090/login -u user | jq -r '.token')
 Enter host password for user 'user':
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100   222  100   222    0     0   3099      0 --:--:-- --:--:-- --:--:--  3126
 
-curl -H "Authorization:  Bearer $TOKEN" http://127.0.0.1:5080/secure
+curl --cacert ./ca.pem -H "Authorization:  Bearer $TOKEN" http://127.0.0.1:5080/secure
 {"message":"Hello"}
 
-curl http://127.0.0.1:5080/secure
+curl --cacert ./ca.pem http://127.0.0.1:5080/secure
 authorization failed
 ```
-
