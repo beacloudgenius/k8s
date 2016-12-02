@@ -79,15 +79,18 @@ The password is `password`
 {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0ODA5MDYzNTEsImlhdCI6MTQ4MDY0NzE1MSwiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.zzRm3e5O4oZPftKi9v2rH6iuqwQAVCT0lqXH86GBwpU"}
 ```
 
-```
-curl --cacert ./ca.pem -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0ODA5MDYzNTEsImlhdCI6MTQ4MDY0NzE1MSwiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.zzRm3e5O4oZPftKi9v2rH6iuqwQAVCT0lqXH86GBwpU' http://127.0.0.1:5080/login
-```
-    authorization failed
+You see token in json. Let's extract token in an env variable.
 
+    TOKEN=$(curl http://127.0.0.1:5080/login -u user | jq -r '.token')
+
+See what get's captured.
+
+    echo $TOKEN
+    
+Authorize as the token bearer and extract secret
 ```
-curl --cacert ./ca.pem -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0ODA5MDYzNTEsImlhdCI6MTQ4MDY0NzE1MSwiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.zzRm3e5O4oZPftKi9v2rH6iuqwQAVCT0lqXH86GBwpU' http://127.0.0.1:5080/secret
+curl --cacert ./ca.pem -H 'Authorization: Bearer $TOKEN' http://127.0.0.1:5080
 {"message":"Hello"}
-```
 
 ```
 curl --cacert ./ca.pem -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0ODA5MDYzNTEsImlhdCI6MTQ4MDY0NzE1MSwiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.zzRm3e5O4oZPftKi9v2rH6iuqwQAVCT0lqXH86GBwpU' http://127.0.0.1:5080
