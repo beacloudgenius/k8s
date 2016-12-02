@@ -175,9 +175,9 @@ Create the secure-monolith Pod using kubectl.
 	kubectl get pods secure-monolith
 
 
-	kubectl port-forward secure-monolith 10443:443
+	kubectl port-forward secure-monolith 5443:443
 
-    curl --cacert tls/ca.pem https://127.0.0.1:10443
+    curl --cacert tls/ca.pem https://127.0.0.1:5443
 
 	kubectl logs -c nginx secure-monolith
 
