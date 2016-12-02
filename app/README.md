@@ -18,15 +18,6 @@ wrote server-key.pem
 
 ### Build and Run
 
-```
-go get github.com/braintree/manners
-go get github.com/braintree/manners/test_helpers
-go get github.com/dgrijalva/jwt-go
-go get golang.org/x/crypto/bcrypt
-go get golang.org/x/crypto/blowfish
-
-go build -o server ./monolith
-```
 Install Go
 
     cd
@@ -50,12 +41,8 @@ Build a static binary of the monolith app
 
 Test monolith locally
 
-    cd app/monolith
-
-in main.go, change port 80 to 5080 and port 81 to 5081
-
-    go get -u 
-    ~/go/bin/monolith
+    cd k8s/app/monolith
+    ./monolith -http :5080 -health :5081
     2016/12/01 18:49:58 Starting server...
     2016/12/01 18:49:58 Health service listening on 0.0.0.0:5081
     2016/12/01 18:49:58 HTTP service listening on 0.0.0.0:5080
