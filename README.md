@@ -142,3 +142,26 @@ For example, once we have a shell into the monolith container we can test extern
 When you’re done with the interactive shell be sure to logout.
 
     exit
+
+### store certs as secrets
+
+    ls tls
+
+The cert.pem and key.pem files will be used to secure traffic on the monolith server and the ca.pem will be used by HTTP clients as the CA to trust. Since the certs being used by the monolith server where signed by the CA represented by ca.pem, HTTP clients that trust ca.pem will be able to validate the SSL connection to the monolith server.
+
+Use kubectl to create the tls-certs secret from the TLS certificates stored under the tls directory:
+
+    kubectl create secret generic tls-certs --from-file=tls/
+
+kubectl will create a key for each file in the tls directory under the tls-certs secret bucket. Use the kubectl describe command to verify that:
+
+    kubectl describe secrets tls-certs
+
+Next we need to create a configmap entry for the proxy.conf nginx configuration file using the kubectl create configmap command:
+
+    kubectl create configmap nginx-proxy-conf --from-file=nginx/proxy.conf
+
+Use the kubectl describe configmap command to get more details about the nginx-proxy-conf configmap entry:
+
+    kubectl describe configmap nginx-proxy-conf
+
