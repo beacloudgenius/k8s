@@ -25,7 +25,7 @@ A sample 12 Factor Application.
 Generate TLS certificates:
 
 ```
-cd $GOPATH/src/github.com/beacloudgenius/k8s
+cd $GOPATH/src/github.com/beacloudgenius/k8s/app
 go run certgen/main.go
 ```
 ```
