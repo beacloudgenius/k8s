@@ -84,3 +84,37 @@ authorization failed
 
 ```
 
+
+### Distributed microservices hello and auth
+
+
+SHELL 1
+```
+cd k8s/app/
+
+go build -o ./h ./hello
+./h -http :5080 -health :5081
+```
+SHELL 2
+```
+cd k8s/app/
+
+go build -o ./a ./auth
+./a -http :5090 -health :5091
+```
+
+SHELL 3
+```
+TOKEN=$(curl 127.0.0.1:5090/login -u user | jq -r '.token')
+Enter host password for user 'user':
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   222  100   222    0     0   3099      0 --:--:-- --:--:-- --:--:--  3126
+
+curl -H "Authorization:  Bearer $TOKEN" http://127.0.0.1:5080/secure
+{"message":"Hello"}
+
+curl http://127.0.0.1:5080/secure
+authorization failed
+```
+
