@@ -55,7 +55,7 @@ Test monolith locally
 in main.go, change port 80 to 5080 and port 81 to 5081
 
     go get -u 
-    $GOPATH/bin/monolith
+    ~/go/bin/monolith
     2016/12/01 18:49:58 Starting server...
     2016/12/01 18:49:58 Health service listening on 0.0.0.0:5081
     2016/12/01 18:49:58 HTTP service listening on 0.0.0.0:5080
@@ -75,20 +75,24 @@ The password is `password`
 
     curl --cacert ./ca.pem -u user http://127.0.0.1:5080/login
     Enter host password for user 'user'
-     {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0ODA5MDYzNTEsImlhdCI6MTQ4MDY0NzE1MSwiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.zzRm3e5O4oZPftKi9v2rH6iuqwQAVCT0lqXH86GBwpU"}
+```
+{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0ODA5MDYzNTEsImlhdCI6MTQ4MDY0NzE1MSwiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.zzRm3e5O4oZPftKi9v2rH6iuqwQAVCT0lqXH86GBwpU"}
+```
 
-    curl --cacert ./ca.pem -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0ODA5MDYzNTEsImlhdCI6MTQ4MDY0NzE1MSwiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.zzRm3e5O4oZPftKi9v2rH6iuqwQAVCT0lqXH86GBwpU' http://127.0.0.1:5080/login
-
+```
+curl --cacert ./ca.pem -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0ODA5MDYzNTEsImlhdCI6MTQ4MDY0NzE1MSwiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.zzRm3e5O4oZPftKi9v2rH6iuqwQAVCT0lqXH86GBwpU' http://127.0.0.1:5080/login
+```
     authorization failed
 
-    curl --cacert ./ca.pem -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0ODA5MDYzNTEsImlhdCI6MTQ4MDY0NzE1MSwiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.zzRm3e5O4oZPftKi9v2rH6iuqwQAVCT0lqXH86GBwpU' http://127.0.0.1:5080/secret
+```
+curl --cacert ./ca.pem -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0ODA5MDYzNTEsImlhdCI6MTQ4MDY0NzE1MSwiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.zzRm3e5O4oZPftKi9v2rH6iuqwQAVCT0lqXH86GBwpU' http://127.0.0.1:5080/secret
+{"message":"Hello"}
+```
 
-    {"message":"Hello"}
-
-    curl --cacert ./ca.pem -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0ODA5MDYzNTEsImlhdCI6MTQ4MDY0NzE1MSwiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.zzRm3e5O4oZPftKi9v2rH6iuqwQAVCT0lqXH86GBwpU' http://127.0.0.1:5080
-
-    {"message":"Hello"}
-
+```
+curl --cacert ./ca.pem -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0ODA5MDYzNTEsImlhdCI6MTQ4MDY0NzE1MSwiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.zzRm3e5O4oZPftKi9v2rH6iuqwQAVCT0lqXH86GBwpU' http://127.0.0.1:5080
+{"message":"Hello"}
+```
 ### Test with cURL
 
 ```
