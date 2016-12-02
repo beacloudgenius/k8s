@@ -47,6 +47,10 @@ wrote server.pem
 wrote server-key.pem
 ```
 
+    mkdir -p ../kubernetes/tls
+    cp *pem ../kubernetes/tls/
+    
+
 #### Build a static binary of the monolith app
 
     cd k8s/app/monolith
