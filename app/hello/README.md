@@ -1,4 +1,4 @@
-    cd k8s/app/hello
+    cd ../hello
     go get -u
     go build --tags netgo --ldflags '-extldflags "-lm -lstdc++ -static"'
 
