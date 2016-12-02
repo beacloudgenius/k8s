@@ -68,7 +68,6 @@ in main.go, change port 80 to 5080 and port 81 to 5081
 
 The password is `password`
 
-> type `password` at the prompt
 
 ### Test with cURL
 
@@ -79,9 +78,10 @@ curl http://localhost:5080
 curl http://localhost:5080/secure
 authorization failed
 
+>>> type `password` at the prompt
+
 curl http://localhost:5080/login -u user
 Enter host password for user 'user':
-
 {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0ODA5MDg1MDAsImlhdCI6MTQ4MDY0OTMwMCwiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.S5Kap0pzhS9G4kOcEhwhTh1HuzKyBic1QbNsbLt188E"}
 
 TOKEN=$(curl http://localhost:5080/login -u user | jq -r '.token')
@@ -91,10 +91,13 @@ Enter host password for user 'user':
 100   222  100   222    0     0   2393      0 --:--:-- --:--:-- --:--:--  2439
 
 echo $TOKEN
-
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0ODA5MDg1MjUsImlhdCI6MTQ4MDY0OTMyNSwiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.JQIsbDRxxai1nxlYjGLfsW6V_Pe19kchJpE0PGP4Z-A
 
 curl -H "Authorization: Bearer $TOKEN" http://localhost:5080/secure
 {"message":"Hello"}
+
+curl http://localhost:5080/secure
+authorization failed
+
 ```
 
