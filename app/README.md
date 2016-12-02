@@ -16,9 +16,7 @@ wrote server.pem
 wrote server-key.pem
 ```
 
-### Build and Run
-
-Install Go
+#### Install Go
 
     cd
     wget https://storage.googleapis.com/golang/go1.7.4.linux-amd64.tar.gz
@@ -27,19 +25,19 @@ Install Go
     export PATH=$PATH:/usr/local/go/bin
     export GOPATH=~/go
 
-Get the app code
+#### Get the app code
 
     mkdir -p $GOPATH/src/github.com/beacloudgenius
     cd $GOPATH/src/github.com/beacloudgenius
     git clone https://github.com/beacloudgenius/k8s.git
 
-Build a static binary of the monolith app
+#### Build a static binary of the monolith app
 
     cd k8s/app/monolith
     go get -u
     go build --tags netgo --ldflags '-extldflags "-lm -lstdc++ -static"'
 
-Test monolith locally
+#### Run monolith locally
 
     cd k8s/app/monolith
     ./monolith -http :5080 -health :5081
@@ -52,11 +50,9 @@ Test monolith locally
     127.0.0.1:54789 - - [Thu, 01 Dec 2016 18:53:31 PST] "GET /secret HTTP/1.1" curl/7.43.0
     127.0.0.1:54796 - - [Thu, 01 Dec 2016 18:53:58 PST] "GET / HTTP/1.1" curl/7.43.0
 
-
 The password is `password`
 
-
-### Test with cURL
+#### Test with cURL
 
 ```
 curl http://localhost:5080                                        
