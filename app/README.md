@@ -2,6 +2,24 @@
 
 A sample 12 Factor Application.
 
+
+~/.zshrc or ~/.bashrc
+
+    export GOPATH=$HOME/go
+    export GOROOT=/usr/local/opt/go/libexec
+    export PATH=$PATH:$GOPATH/bin
+    export PATH=$PATH:$GOROOT/bin
+    export GOBIN=$GOPATH/bin
+
+
+## Get the code
+
+    rm -rf ~/go
+    mkdir -p ~/go
+    mkdir -p $GOPATH/src/github.com/beacloudgenius
+    cd $GOPATH/src/github.com/beacloudgenius
+    git clone https://github.com/beacloudgenius/k8s
+
 ## Usage
 
 Generate TLS certificates:
@@ -25,11 +43,7 @@ wrote server-key.pem
     export PATH=$PATH:/usr/local/go/bin
     export GOPATH=~/go
 
-#### Get the app code
 
-    mkdir -p $GOPATH/src/github.com/beacloudgenius
-    cd $GOPATH/src/github.com/beacloudgenius
-    git clone https://github.com/beacloudgenius/k8s.git
 
 #### Build a static binary of the monolith app
 
