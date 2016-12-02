@@ -165,3 +165,22 @@ Use the kubectl describe configmap command to get more details about the nginx-p
 
     kubectl describe configmap nginx-proxy-conf
 
+Accessing A Secure HTTPS Endpoint
+
+	cat pods/secure-monolith.yaml
+
+Create the secure-monolith Pod using kubectl.
+
+	kubectl create -f pods/secure-monolith.yaml
+	kubectl get pods secure-monolith
+
+
+	kubectl port-forward secure-monolith 10443:443
+
+    curl --cacert tls/ca.pem https://127.0.0.1:10443
+
+	kubectl logs -c nginx secure-monolith
+
+	kubectl logs -p secure-monolith nginx
+
+	kubectl logs -p secure-monolith monolith
