@@ -6,7 +6,7 @@ A sample 12 Factor Application.
 ~/.zshrc or ~/.bashrc
 
     export GOPATH=$HOME/go
-    export GOROOT=/usr/local/opt/go/libexec
+    export GOROOT=/usr/local/go/bin     or on mac use /usr/local/opt/go/libexec
     export PATH=$PATH:$GOPATH/bin
     export PATH=$PATH:$GOROOT/bin
     export GOBIN=$GOPATH/bin
