@@ -167,20 +167,23 @@ Use the kubectl describe configmap command to get more details about the nginx-p
 
 Accessing A Secure HTTPS Endpoint
 
-	cat pods/secure-monolith.yaml
+    cat pods/secure-monolith.yaml
 
 Create the secure-monolith Pod using kubectl.
 
-	kubectl create -f pods/secure-monolith.yaml
-	kubectl get pods secure-monolith
+    kubectl create -f pods/secure-monolith.yaml
+    kubectl get pods secure-monolith
 
+    kubectl port-forward secure-monolith 5443:443
 
-	kubectl port-forward secure-monolith 5443:443
+Note HTTPS not HTTP
 
     curl --cacert tls/ca.pem https://127.0.0.1:5443
 
-	kubectl logs -c nginx secure-monolith
+    kubectl logs -c nginx secure-monolith
 
-	kubectl logs -p secure-monolith nginx
+If a container dies, use `-p` flag to examine previous terminated container(s)
 
-	kubectl logs -p secure-monolith monolith
+    kubectl logs -p secure-monolith nginx
+
+    kubectl logs -p secure-monolith monolith
