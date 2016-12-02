@@ -5,6 +5,8 @@ Scalable Microservices with Kubernetes
 
 Kubernetes Version: 1.4.6
 
+    dnf install -y jq
+
 ## Course Description
 
 Kubernetes is all about applications and in this course you will utilize the Kubernetes API to deploy, manage, and upgrade applications. You will use an example application called `app` to complete the labs.
