@@ -68,49 +68,33 @@ in main.go, change port 80 to 5080 and port 81 to 5081
 
 The password is `password`
 
-    curl --cacert ./ca.pem -u user http://127.0.0.1:5080/secret
-    Enter host password for user 'user':
+> type `password` at the prompt
 
-    {"message":"Hello"}
-
-    curl --cacert ./ca.pem -u user http://127.0.0.1:5080/login
-    Enter host password for user 'user'
-```
-{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0ODA5MDYzNTEsImlhdCI6MTQ4MDY0NzE1MSwiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.zzRm3e5O4oZPftKi9v2rH6iuqwQAVCT0lqXH86GBwpU"}
-```
-
-You see token in json. Let's extract token in an env variable.
-
-    TOKEN=$(curl http://127.0.0.1:5080/login -u user | jq -r '.token')
-
-See what get's captured.
-
-    echo $TOKEN
-    
-Authorize as the token bearer and extract secret
-```
-curl --cacert ./ca.pem -H 'Authorization: Bearer $TOKEN' http://127.0.0.1:5080
-{"message":"Hello"}
-
-```
-curl --cacert ./ca.pem -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0ODA5MDYzNTEsImlhdCI6MTQ4MDY0NzE1MSwiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.zzRm3e5O4oZPftKi9v2rH6iuqwQAVCT0lqXH86GBwpU' http://127.0.0.1:5080
-{"message":"Hello"}
-```
 ### Test with cURL
 
 ```
-curl --cacert ./ca.pem -u user https://127.0.0.1:5000/login
-```
-```
+curl http://localhost:5080                                        
+{"message":"Hello"}
+
+curl http://localhost:5080/secure
+authorization failed
+
+curl http://localhost:5080/login -u user
 Enter host password for user 'user':
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0NjA5ODcxOTcsImlhdCI6MTQ2MDcyNzk5NywiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.x3oFhRhWk5CGYfGcrNctPGWCENEsXpUuKPDQU2ZOLCY
+
+{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0ODA5MDg1MDAsImlhdCI6MTQ4MDY0OTMwMCwiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.S5Kap0pzhS9G4kOcEhwhTh1HuzKyBic1QbNsbLt188E"}
+
+TOKEN=$(curl http://localhost:5080/login -u user | jq -r '.token')
+Enter host password for user 'user':
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   222  100   222    0     0   2393      0 --:--:-- --:--:-- --:--:--  2439
+
+echo $TOKEN
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0ODA5MDg1MjUsImlhdCI6MTQ4MDY0OTMyNSwiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.JQIsbDRxxai1nxlYjGLfsW6V_Pe19kchJpE0PGP4Z-A
+
+curl -H "Authorization: Bearer $TOKEN" http://localhost:5080/secure
+{"message":"Hello"}
 ```
 
-> type "password" at the prompt
-
-```
-curl --cacert ./ca.pem -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0NjA5ODcxOTcsImlhdCI6MTQ2MDcyNzk5NywiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.x3oFhRhWk5CGYfGcrNctPGWCENEsXpUuKPDQU2ZOLCY' https://127.0.0.1:5000/
-```
-```
-<h1>Hello</h1>
-```
