@@ -187,3 +187,26 @@ If a container dies, use `-p` flag to examine previous terminated container(s)
     kubectl logs -p secure-monolith nginx
 
     kubectl logs -p secure-monolith monolith
+
+
+
+Deploy service
+
+    cat services/monolith.yaml
+
+    kubectl create -f services/monolith.yaml 
+
+    gcloud compute firewall-rules create allow-monolith-nodeport --allow=tcp:31000
+
+    gcloud compute instances list
+
+    kubectl get nodes
+
+    kubectl describe nodes
+
+    kubectl get pods -l "app=monolith"
+    kubectl get pods -l "app=monolith,secure=enabled"
+    kubectl describe pods secure-monolith |grep Labels
+    kubectl label pods secure-monolith "secure=enabled"
+    kubectl describe pods secure-monolith |grep secure
+    
