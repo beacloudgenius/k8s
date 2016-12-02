@@ -8,6 +8,7 @@ spec:
   containers:
     - name: monolith
       image: "cloudgenius/monolith-example:1.0.0"
+      imagePullPolicy: Always
       args:
         - "-http=0.0.0.0:80"
         - "-health=0.0.0.0:81"

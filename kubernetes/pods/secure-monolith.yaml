@@ -8,6 +8,7 @@ spec:
   containers:
     - name: nginx
       image: "nginx:1.9.14"
+      imagePullPolicy: Always
       lifecycle:
         preStop:
           exec:
@@ -19,6 +20,7 @@ spec:
           mountPath: "/etc/tls"
     - name: monolith
       image: "cloudgenius/monolith-example:1.0.0"
+      imagePullPolicy: Always
       ports:
         - name: http
           containerPort: 80
