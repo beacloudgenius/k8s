@@ -48,21 +48,51 @@ Build a static binary of the monolith app
     go get -u
     go build --tags netgo --ldflags '-extldflags "-lm -lstdc++ -static"'
 
-```
-./server
-```
+Test monolith locally
 
-```
-2016/04/15 06:34:12 Starting server...
-2016/04/15 06:34:12 HTTP service listening on 0.0.0.0:5000
-2016/04/15 06:34:12 Health service listening on 0.0.0.0:5001
-2016/04/15 06:34:12 Started successfully.
-```
+    cd app/monolith
+
+in main.go, change port 80 to 5080 and port 81 to 5081
+
+    go get -u 
+    $GOPATH/bin/monolith
+    2016/12/01 18:49:58 Starting server...
+    2016/12/01 18:49:58 Health service listening on 0.0.0.0:5081
+    2016/12/01 18:49:58 HTTP service listening on 0.0.0.0:5080
+    127.0.0.1:54777 - - [Thu, 01 Dec 2016 18:52:20 PST] "GET /secret HTTP/1.1" curl/7.43.0
+    127.0.0.1:54779 - - [Thu, 01 Dec 2016 18:52:31 PST] "GET /login HTTP/1.1" curl/7.43.0
+    127.0.0.1:54787 - - [Thu, 01 Dec 2016 18:53:26 PST] "GET /login HTTP/1.1" curl/7.43.0
+    127.0.0.1:54789 - - [Thu, 01 Dec 2016 18:53:31 PST] "GET /secret HTTP/1.1" curl/7.43.0
+    127.0.0.1:54796 - - [Thu, 01 Dec 2016 18:53:58 PST] "GET / HTTP/1.1" curl/7.43.0
+
+
+The password is `password`
+
+    curl --cacert ./ca.pem -u user http://127.0.0.1:5080/secret
+    Enter host password for user 'user':
+
+    {"message":"Hello"}
+
+    curl --cacert ./ca.pem -u user http://127.0.0.1:5080/login
+    Enter host password for user 'user'
+     {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0ODA5MDYzNTEsImlhdCI6MTQ4MDY0NzE1MSwiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.zzRm3e5O4oZPftKi9v2rH6iuqwQAVCT0lqXH86GBwpU"}
+
+    curl --cacert ./ca.pem -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0ODA5MDYzNTEsImlhdCI6MTQ4MDY0NzE1MSwiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.zzRm3e5O4oZPftKi9v2rH6iuqwQAVCT0lqXH86GBwpU' http://127.0.0.1:5080/login
+
+    authorization failed
+
+    curl --cacert ./ca.pem -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0ODA5MDYzNTEsImlhdCI6MTQ4MDY0NzE1MSwiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.zzRm3e5O4oZPftKi9v2rH6iuqwQAVCT0lqXH86GBwpU' http://127.0.0.1:5080/secret
+
+    {"message":"Hello"}
+
+    curl --cacert ./ca.pem -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjE0ODA5MDYzNTEsImlhdCI6MTQ4MDY0NzE1MSwiaXNzIjoiYXV0aC5zZXJ2aWNlIiwic3ViIjoidXNlciJ9.zzRm3e5O4oZPftKi9v2rH6iuqwQAVCT0lqXH86GBwpU' http://127.0.0.1:5080
+
+    {"message":"Hello"}
 
 ### Test with cURL
 
 ```
-$ curl --cacert ./ca.pem -u user https://127.0.0.1:5000/login
+curl --cacert ./ca.pem -u user https://127.0.0.1:5000/login
 ```
 ```
 Enter host password for user 'user':
