@@ -197,12 +197,11 @@ Deploy service
     kubectl create -f services/monolith.yaml 
 
     gcloud compute firewall-rules create allow-monolith-nodeport --allow=tcp:31000
-
     gcloud compute instances list
-
+    
     kubectl get nodes
-
     kubectl describe nodes
+    virsh net-dhcp-leases vagrant-libvirt
 
     kubectl get pods -l "app=monolith"
     kubectl get pods -l "app=monolith,secure=enabled"
@@ -210,3 +209,6 @@ Deploy service
     kubectl label pods secure-monolith "secure=enabled"
     kubectl describe pods secure-monolith |grep secure
     
+    virsh net-dhcp-leases vagrant-libvirt
+    
+    curl -k https://dhcp-lease:31000
